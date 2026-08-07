@@ -115,7 +115,7 @@ export default function Seo(props: SeoProps) {
                   '@type': 'ImageObject',
                   url: 'https://text-to-diagram.com/svg/terrastruct.svg',
                 },
-                sameAs: ['https://github.com/terrastruct'],
+                sameAs: ['https://github.com/d2lang'],
               },
               {
                 '@type': 'WebPage',
