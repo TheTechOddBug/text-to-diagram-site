@@ -1,41 +1,41 @@
-#!/bin/bash
+#!/bin/sh
 set -eu
 
-# GCP deployment configuration - from terraform outputs
-GCP_PROJECT="t2d-t2d-0e3c93ae"
-GCS_BUCKET="gs://t2d-site-ac4ececd"
-CDN_URL_MAP="t2d-https-map-df18"
+: "${AWS_S3_BUCKET:?AWS_S3_BUCKET is required}"
+: "${AWS_CLOUDFRONT_DISTRIBUTION_ID:?AWS_CLOUDFRONT_DISTRIBUTION_ID is required}"
 
 yarn build
 
-echo "Uploading to GCS bucket: ${GCS_BUCKET}/"
-gsutil -m rsync -r -d ./out ${GCS_BUCKET}
+echo "Uploading to s3://${AWS_S3_BUCKET}/"
+aws s3 sync ./out/ "s3://${AWS_S3_BUCKET}/" \
+  --cache-control "public,max-age=300"
 
-echo "Setting optimal cache headers for different content types..."
-
-# Long-lived assets (CSS, JS, images with versioned names) - 1 year cache
-if gsutil ls "${GCS_BUCKET}/_next/" >/dev/null 2>&1; then
-  gsutil -m setmeta -h "Cache-Control:public,max-age=31536000,immutable" "${GCS_BUCKET}/_next/**"
+# Keep old hashed assets so clients holding cached HTML never lose a chunk
+# between upload and invalidation. This retired script is the one intentional
+# deletion in the GCP-to-AWS migration.
+if aws s3api head-object \
+  --bucket "${AWS_S3_BUCKET}" \
+  --key assets/rum-monitoring.js >/dev/null 2>&1; then
+  aws s3 rm "s3://${AWS_S3_BUCKET}/assets/rum-monitoring.js"
 fi
 
-# HTML files - 5 minute cache for content updates  
-gsutil -m setmeta -h "Cache-Control:public,max-age=300" "${GCS_BUCKET}/*.html"
-
-# Fonts and images (medium-term caching) - 1 day
-if gsutil ls "${GCS_BUCKET}/fonts/" >/dev/null 2>&1; then
-  gsutil -m setmeta -h "Cache-Control:public,max-age=86400" "${GCS_BUCKET}/fonts/**"
+if [ -d ./out/_next ]; then
+  aws s3 cp ./out/_next/ "s3://${AWS_S3_BUCKET}/_next/" \
+    --recursive \
+    --cache-control "public,max-age=31536000,immutable"
 fi
 
-if gsutil ls "${GCS_BUCKET}/images/" >/dev/null 2>&1; then
-  gsutil -m setmeta -h "Cache-Control:public,max-age=86400" "${GCS_BUCKET}/images/**"
-fi
-
-if gsutil ls "${GCS_BUCKET}/favicon/" >/dev/null 2>&1; then
-  gsutil -m setmeta -h "Cache-Control:public,max-age=86400" "${GCS_BUCKET}/favicon/**"
-fi
+for directory in fonts images favicon; do
+  if [ -d "./out/${directory}" ]; then
+    aws s3 cp "./out/${directory}/" "s3://${AWS_S3_BUCKET}/${directory}/" \
+      --recursive \
+      --cache-control "public,max-age=86400"
+  fi
+done
 
 echo "Invalidating CDN cache..."
-gcloud compute url-maps invalidate-cdn-cache ${CDN_URL_MAP} \
-  --path "/*" --project ${GCP_PROJECT}
+aws cloudfront create-invalidation \
+  --distribution-id "${AWS_CLOUDFRONT_DISTRIBUTION_ID}" \
+  --paths "/*" >/dev/null
 
 echo "Deployment complete!"
