@@ -83,7 +83,7 @@ export default function HomePage(props: any) {
                   className='cursor-pointer text-2xl'
                   onClick={() =>
                     window.open(
-                      'https://github.com/terrastruct/text-to-diagram.com',
+                      'https://github.com/d2lang/text-to-diagram-site',
                       '_blank'
                     )
                   }
