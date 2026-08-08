@@ -14,10 +14,16 @@ export default function SoftwareSchema() {
         applicationCategory: 'DeveloperApplication',
         operatingSystem: ['Windows', 'macOS', 'Linux'],
         url: 'https://d2lang.com',
-        creator: {
-          '@type': 'Organization',
-          name: 'Terrastruct',
-        },
+        creator: [
+          {
+            '@type': 'Person',
+            name: 'Alexander Wang',
+          },
+          {
+            '@type': 'Person',
+            name: 'Anmol Sethi',
+          },
+        ],
         license: 'https://opensource.org/licenses/MPL-2.0',
         programmingLanguage: 'Go',
       },

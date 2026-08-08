@@ -73,10 +73,8 @@ export default function HomePage(props: any) {
           <footer className='mt-auto bg-steel-900 text-white'>
             <div className='layout flex justify-between py-4'>
               <div>
-                © {new Date().getFullYear()}{' '}
-                <UnderlineLink href='https://terrastruct.com?ref=text-to-diagram'>
-                  Terrastruct
-                </UnderlineLink>
+                Maintained by{' '}
+                <UnderlineLink href='https://d2lang.com'>the D2 project</UnderlineLink>
               </div>
               <div>
                 <GithubDark

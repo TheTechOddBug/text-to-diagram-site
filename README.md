@@ -5,7 +5,7 @@
   height="150px"
   />
   <h1>Text to diagram comparisons</h1>
-  <a href="http://text-to-diagram.com">Go to comparisons site</a>
+  <a href="https://text-to-diagram.com">Go to comparisons site</a>
   <p>Compare syntax, layouts, outputs between languages for generating diagrams with text.</p>
 </div>
 
@@ -17,11 +17,11 @@
 [![daily](https://github.com/d2lang/text-to-diagram-site/actions/workflows/daily.yml/badge.svg)](https://github.com/d2lang/text-to-diagram-site/actions/workflows/daily.yml)
 [![license](https://img.shields.io/github/license/d2lang/text-to-diagram-site?color=9cf)](./LICENSE)
 
-*Full disclosure: This is created and maintained by Terrastruct. We created D2, and it's
-in our interest to provide anyone evaluating us with an objective comparison against
-alternatives. The only favor granted to D2 is that it shows up as the first
-comparison. We welcome contributions. Even ones that make D2 look bad (it'll be motivation
-for us to patch it!).*
+_Full disclosure: This site and D2 were originally created at Terrastruct. Today, the
+site is maintained by the independent D2 project, fiscally sponsored by Hack Club. D2
+appears first; otherwise, it gets no special treatment. Contributions and corrections
+are welcome—even ones that make D2 look bad. We'll include them without bias and then
+furiously improve D2._
 
 ### Currently supported comparisons
 
@@ -60,18 +60,21 @@ Please follow the examples in `src/examples`.
 
 1. Create a folder in `src/examples` with a short name of the example
 1. Add in that folder:
-  - `description.txt` to describe what the example aims to demonstrate.
-  - `render/` for SVG renders
-  - `syntax/` for texts
-  - If there are languages with errors for this example, `error/`
+
+- `description.txt` to describe what the example aims to demonstrate.
+- `render/` for SVG renders
+- `syntax/` for texts
+- If there are languages with errors for this example, `error/`
+
 1. Create the text for as many languages as you can. It's okay if not totally complete. We
-or others can fill.
+   or others can fill.
 1. Run `./ci/render.sh` (with the respective tools installed)
-  - Pre-requisite tools:
-    - `mermaid-cli` (`mmdc`)
-    - `plantuml`
-    - `graphviz` (`dot`)
-    - `d2`
+
+- Pre-requisite tools:
+  - `mermaid-cli` (`mmdc`)
+  - `plantuml`
+  - `graphviz` (`dot`)
+  - `d2`
 
 <img alt="CLI render" src="/docs/assets/render.png" />
 

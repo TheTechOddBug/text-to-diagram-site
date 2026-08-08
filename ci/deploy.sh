@@ -11,13 +11,14 @@ aws s3 sync ./out/ "s3://${AWS_S3_BUCKET}/" \
   --cache-control "public,max-age=300"
 
 # Keep old hashed assets so clients holding cached HTML never lose a chunk
-# between upload and invalidation. This retired script is the one intentional
-# deletion in the GCP-to-AWS migration.
-if aws s3api head-object \
-  --bucket "${AWS_S3_BUCKET}" \
-  --key assets/rum-monitoring.js >/dev/null 2>&1; then
-  aws s3 rm "s3://${AWS_S3_BUCKET}/assets/rum-monitoring.js"
-fi
+# between upload and invalidation. Remove only explicitly retired public files.
+for key in assets/rum-monitoring.js svg/terrastruct.svg; do
+  if aws s3api head-object \
+    --bucket "${AWS_S3_BUCKET}" \
+    --key "${key}" >/dev/null 2>&1; then
+    aws s3 rm "s3://${AWS_S3_BUCKET}/${key}"
+  fi
+done
 
 if [ -d ./out/_next ]; then
   aws s3 cp ./out/_next/ "s3://${AWS_S3_BUCKET}/_next/" \
