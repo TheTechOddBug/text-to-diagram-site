@@ -2,7 +2,7 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 
 const defaultMeta = {
-  title: 'Text to Diagram Tools Comparison 2025 | D2 vs Mermaid vs PlantUML vs Graphviz',
+  title: 'Text to Diagram Tools Comparison | D2 vs Mermaid vs PlantUML vs Graphviz',
   siteName: 'Text to Diagram',
   description:
     'Compare top text-to-diagram tools: D2, Mermaid, PlantUML & Graphviz. Side-by-side syntax examples, features & renders. Find the best diagramming tool for developers.',
@@ -49,13 +49,12 @@ export default function Seo(props: SeoProps) {
       <meta name='image' property='og:image' content={meta.image} />
       {/* Twitter */}
       <meta name='twitter:card' content='summary_large_image' />
-      <meta name='twitter:site' content='@terrastruct' />
       <meta name='twitter:title' content={meta.title} />
       <meta name='twitter:description' content={meta.description} />
       <meta name='twitter:image' content={meta.image} />
 
       {/* Additional SEO Meta Tags */}
-      <meta name='author' content='Terrastruct' />
+      <meta name='author' content='D2 project contributors' />
       <meta
         name='keywords'
         content='text to diagram, D2, Mermaid, PlantUML, Graphviz, diagram as code, infrastructure as code, developer tools, diagramming tools comparison'
@@ -96,26 +95,7 @@ export default function Seo(props: SeoProps) {
                 name: 'Text to Diagram',
                 description:
                   'Compare top text-to-diagram tools: D2, Mermaid, PlantUML & Graphviz. Side-by-side syntax examples, features & renders.',
-                potentialAction: {
-                  '@type': 'SearchAction',
-                  target: {
-                    '@type': 'EntryPoint',
-                    urlTemplate: 'https://text-to-diagram.com/?q={search_term_string}',
-                  },
-                  'query-input': 'required name=search_term_string',
-                },
                 inLanguage: 'en-US',
-              },
-              {
-                '@type': 'Organization',
-                '@id': 'https://text-to-diagram.com/#organization',
-                name: 'Terrastruct',
-                url: 'https://terrastruct.com',
-                logo: {
-                  '@type': 'ImageObject',
-                  url: 'https://text-to-diagram.com/svg/terrastruct.svg',
-                },
-                sameAs: ['https://github.com/d2lang'],
               },
               {
                 '@type': 'WebPage',
@@ -126,11 +106,6 @@ export default function Seo(props: SeoProps) {
                 isPartOf: {
                   '@id': 'https://text-to-diagram.com/#website',
                 },
-                about: {
-                  '@id': 'https://text-to-diagram.com/#organization',
-                },
-                datePublished: '2024-01-01',
-                dateModified: '2025-02-11',
                 inLanguage: 'en-US',
               },
             ],

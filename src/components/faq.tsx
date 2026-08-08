@@ -1,4 +1,3 @@
-import classNames from 'classnames';
 import { useState } from 'react';
 
 import Down from '~/svg/down.svg';
@@ -41,7 +40,7 @@ const items = [
   },
   {
     question: 'Who made this?',
-    answer: `This is created and maintained by Terrastruct. We created D2, and it's in our interest to provide anyone evaluating us with an objective comparison against others in the space. The only favor granted to D2 is that it shows up as the first comparison. We welcome contributions, and if any examples potentially make D2 look bad, we will include them without bias (and then furiously improve D2 so the example looks better, a right other tools have as well).`,
+    answer: `This site and D2 were originally created at Terrastruct. Today, the site is maintained by the independent D2 project, fiscally sponsored by Hack Club. D2 appears first; otherwise, it gets no special treatment. Contributions and corrections are welcome—even ones that make D2 look bad. We'll include them without bias and then furiously improve D2.`,
   },
   {
     question: "Why isn't [my favorite underground language] here?",
@@ -82,11 +81,7 @@ export default function FAQ() {
           </h1>
         </div>
       </div>
-      <div
-        className={classNames('layout w-full pb-16', {
-          'h-[40rem]': openQuestion !== -1,
-        })}
-      >
+      <div className='layout w-full pb-16'>
         <div className='w-full divide-y divide-steel-200 rounded-lg border border-steel-200'>
           {items.map((item: any, i: number) => (
             <Collapsible

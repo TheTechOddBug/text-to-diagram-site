@@ -90,7 +90,7 @@ function Langs(props: LangsProps) {
     const renderDescription = () => {
       switch (props.activeLang) {
         case 'd2':
-          return 'D2 is a Go-based language released in 2022 by Terrastruct, Inc. It is focused on flowchart-style software architecture diagrams, with support for SQL tables, classes, icons, markdown text, code snippets, and more. D2 can be used with open source layout engines, as well as a proprietary layout engine developed by Terrastruct.';
+          return 'D2 is an open-source Go-based language created by Alexander Wang and Anmol Sethi and released in 2022. It focuses on flowchart-style software architecture diagrams, with support for SQL tables, classes, icons, Markdown, code snippets, and more. D2 works with open-source layout engines as well as TALA, an optional proprietary layout engine.';
         case 'plantuml':
           return "PlantUML is a Java-based language released in 2009 primarily for creating UML diagrams. It's specification, at 416 pages, is rigorous, closely aligning with the specification of UML. It has since grown to support non-UML diagrams as well, such as network diagrams, Gantt charts, and mind maps.";
         case 'mermaid':
